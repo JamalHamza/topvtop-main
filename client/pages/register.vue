@@ -1,36 +1,36 @@
 <template>
+  <div>
     <Header />
-  <div class="container">
-    <h2>Register</h2>
-    <form class="form-container" @submit.prevent="register">
-      <input type="text" v-model="username" placeholder="username">
-      <input type="email" v-model="email" placeholder="email">
-      <input type="password" v-model="password" placeholder="Password">
-      <button type="submit" :disabled="isRegisterDisabled">Register</button>
-    </form>
+    <div class="container">
+      <h2>Register</h2>
+      <form class="form-container" @submit.prevent="register">
+        <input type="text" v-model="username" placeholder="Username">
+        <input type="email" v-model="email" placeholder="Email">
+        <input type="password" v-model="password" placeholder="Password">
+        <button type="submit" :disabled="isRegisterDisabled">Register</button>
+      </form>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-
-
+  data() {
+    return {
+      username: '',
+      email: '',
+      password: '',
+    }
+  },
   computed: {
     isRegisterDisabled() {
       return !this.username || !this.email || !this.password;
     }
   },
-  data() {
-    return {
-    username: '',
-      email: '',
-      password: ''
-    }
-  },
   methods: {
     async register() {
       try {
-        const response = await $fetch('http://localhost:5000/auth/register', {
+        const response = await fetch('http://localhost:5000/auth/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -43,21 +43,25 @@ export default {
         });
 
         if (response.ok) {
-          // Navigate to protected route
+          // Registration successful, handle as needed (e.g., redirect to login page)
           this.$router.push('/');
-          console.log(response)
+          console.log('Registration successful:', response);
         } else {
+          // Registration failed, handle error
           const errorMessage = await response.text();
           throw new Error(errorMessage);
         }
       } catch (error) {
-        alert('Login failed. Please try again.');
-        console.log(error)
+        // Log the error to console for debugging
+        console.error('Registration failed:', error);
+        // Show specific error message to user
+        alert('Registration failed. Please try again.');
       }
     }
   }
 }
 </script>
+
 
 
 <style scoped >
