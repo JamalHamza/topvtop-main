@@ -5,13 +5,20 @@
     <form class="form-container" @submit.prevent="login">
       <input type="text" v-model="email" placeholder="email">
       <input type="password" v-model="password" placeholder="Password">
-      <button type="submit">Login</button>
+      <button type="submit" :disabled="isLoginDisabled">Login</button>
     </form>
   </div>
 </template>
 
 <script>
 export default {
+
+
+  computed: {
+    isLoginDisabled() {
+      return !this.email || !this.password;
+    }
+  },
   data() {
     return {
       email: '',
@@ -41,6 +48,7 @@ export default {
         }
       } catch (error) {
         alert('Login failed. Please try again.');
+        console.log(error)
       }
     }
   }
@@ -50,15 +58,8 @@ export default {
 
 <style scoped >
 .container {
-  /* max-width: 350px;
-  width: 40rem;
-  margin: 10px;
-  padding: 110px;
-  border: 1px solid;
-  border: 1px solid #ccc;
   border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
-  border: 1px solid;
+ 
   height: 90vh;
   display: flex;
   justify-content: center;
@@ -67,6 +68,7 @@ export default {
 }
 
 .form-container {
+   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
     padding: 2rem 1rem;
     display:flex;
     flex-direction: column;

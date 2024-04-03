@@ -1,10 +1,12 @@
 <template>
   <header class="fixed-header">
-    <div class="container">
-      <nav>
-        <router-link  class="link" to="/login">Login</router-link>
-        <router-link class="link" to="/register">Register</router-link>
-      </nav>
+    <div class="link">
+      <NuxtLink to="/login">
+    Login 
+  </NuxtLink>
+  <NuxtLink to="/register">
+    Register
+  </NuxtLink>
     </div>
   </header>
 </template>
@@ -25,10 +27,25 @@ export default {
   background-color: #024151;
   font-size: 24px;
   
+  
 } 
 
 .link {
-  color : red
+  
+  display: flex;
+  width: 14rem;
+  justify-content: space-around;
+  text-align: center;
+
+
+  
+}
+
+.link a {
+  color : rgb(248, 248, 248);
+  padding: 4px 4px;
+  border-radius: 10px;
+  text-decoration :'none'
 }
 
 
